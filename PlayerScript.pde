@@ -15,20 +15,19 @@ class PlayerScript extends Component {
   }
 
   void update() {
+    this.checkGrounds();
+  }//end update
+  
+  void checkGrounds(){
     for (int i = 0; i < ground.size(); i++) {
       Platform p = (Platform) ground.get(i);
       //println(p);
       Collider other = (Collider) p.platform.getComponent("Collider");
       //println("collider is " + this.collider);
-
-      if (collider.checkCollide(other) ) {
-        //println("other is " + other);
-        //println("hitting ground? " + collider.checkCollide(other) );
-        //physics.applyForce(new PVector(0, 0) );
+      
+      if (collider.checkBottomOverlap(other) ) {
         physics.haltDown();
         this.iJumped = false;
-        
-        
         float dist = this.collider.bottomOverlap(other);
         println("dist = " + dist);
         physics.moveObject("y", dist * -1); 
@@ -36,7 +35,7 @@ class PlayerScript extends Component {
         physics.applyForce (new PVector(0, gravity) );
       }
     }
-  }//end update
+  }
 
   public void jump() {
     if (!iJumped) {
