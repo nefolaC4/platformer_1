@@ -1,7 +1,7 @@
 
 class Collider extends Component {
   float top, bottom, left, right;
-
+  boolean still = false;
   Collider(GameObject prnt) {
     super(prnt, "Collider"); 
     updateSides();
@@ -12,12 +12,13 @@ class Collider extends Component {
   }
 
   void updateSides() {
-    this.top    = parent.worldPos.y - parent.dim.y/2;
-    this.bottom = parent.worldPos.y + parent.dim.y/2;
-    this.left   = parent.worldPos.x - parent.dim.x/2;
-    this.right  = parent.worldPos.x + parent.dim.x/2;
+    if (!still) {
+      this.top    = parent.worldPos.y - parent.dim.y/2;
+      this.bottom = parent.worldPos.y + parent.dim.y/2;
+      this.left   = parent.worldPos.x - parent.dim.x/2;
+      this.right  = parent.worldPos.x + parent.dim.x/2;
+    }
   }
-
   public boolean checkCollide(Collider other) {
     if (
       (this.bottom >= other.top) &&

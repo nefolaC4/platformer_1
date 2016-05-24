@@ -10,6 +10,8 @@ class Platform {
 
     platform.components.add(new Renderer(platform, color(0, 0, 255) ) );
     platform.components.add(new Collider(platform));
+    Collider c = (Collider) platform.getComponent("Collider");
+    c.still = true;
   }
 
   void updateEarly() {

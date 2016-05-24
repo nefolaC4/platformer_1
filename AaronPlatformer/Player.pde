@@ -2,10 +2,10 @@
 class Player {
   GameObject player;
 
-  Player(PVector pos, PVector size) {
+  Player(SpawnPoint spawnPoint) {
     player = new GameObject("Player");
-    player.worldPos = pos;
-    player.dim = size;
+    player.worldPos = new PVector( spawnPoint.worldPos.x, spawnPoint.worldPos.y) ;
+    player.dim = new PVector(10, 25);
 
     player.components.add(new Physics(player) );
     player.components.add(new Renderer(player, color(255, 0, 0) ) );

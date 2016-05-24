@@ -17,26 +17,30 @@ class PlayerScript extends Component {
 
   void update() {
     this.checkGrounds();
-  
-}//end update
-void checkGrounds() {
-  for (int i = 0; i < ground.size(); i++) {
-    Platform p = (Platform) ground.get(i);
-    Collider other = (Collider) p.platform.getComponent("Collider");
-    //println("collider is " + this.collider);
-
-    if (collider.checkBottomOverlap(other) ) {
-      physics.haltDown();
-      this.iJumped = false;
-
-      float dist = this.collider.bottomOverlap(other);
-      println("dist = " + dist);
-      physics.moveObject("y", dist * -1);
-    } else {
-      physics.applyForce (new PVector(0, gravity) );
+  }//end update
+  void checkGrounds() {
+    boolean hitGroundDown = false;
+    for (int i = 0; i < ground.size(); i++) {
+      Platform p = (Platform) ground.get(i);
+      Collider other = (Collider) p.platform.getComponent("Collider");
+      //println("collider is " + this.collider);
+      hitGroundDown = collider.checkBottomOverlap(other);
+      if (hitGroundDown ) {
+        physics.haltDown();
+        this.iJumped = false;
+        hitGroundDown = true;
+      } else {
+        physics.applyForce (new PVector(0, gravity) );
+      }
     }
   }
-}
+
+  void positionAdjust(Collider other, boolean hitDown, boolean hitUp, boolean hitLeft, boolean hitRight) {
+    float dist = this.collider.bottomOverlap(other);
+    println("dist = " + dist);
+    physics.moveObject("y", dist * -1);
+  }
+
   public void jump() {
     if (!iJumped) {
       println("Am I jumping?");
