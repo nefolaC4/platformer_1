@@ -38,7 +38,7 @@ void draw() {
   background(255);
   updateEarly();
   cam.followPlayer();
-//frameRate(5);
+//frameRate(99);
   update();
   updateLate();
 }
