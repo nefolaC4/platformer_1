@@ -38,25 +38,44 @@ class Collider extends Component {
       return false;
     }
   }
-  
+
   //This only gets called after we know they are touching
-  public boolean checkBottomOverlap(Collider other){
-    println("bottom = " + this.bottom);
-    println("other.bottom = " + other.bottom + "      and other.top = " + other.top);
-    if ( (this.bottom <= other.bottom) && (this.bottom >= other.top) ){
-      return true;
-    } else {
-      return false;
+  public boolean checkBottomOverlap(Collider other) {
+    //println("bottom = " + this.bottom);
+    //println("other.bottom = " + other.bottom + "      and other.top = " + other.top);
+    if (checkCollide(other) ) {
+      if ( (this.bottom <= other.bottom) && (this.bottom >= other.top) ) {
+        return true;
+      }
     }
+    return false;
   }
-  
-  public float bottomOverlap(Collider other){
-    if (checkBottomOverlap(other) ){
+
+  public float bottomOverlap(Collider other) {
+    println("other is: " + other.parent.type);
+    if (checkBottomOverlap(other) ) {
       return this.bottom - other.top;
-    } else {
-      return 0;
     }
-    
+    return 0;
   }
-  
+
+  //This only gets called after we know they are touching
+  public boolean checkTopOverlap(Collider other) {
+    //println("top = " + this.bottom);
+    //println("other.bottom = " + other.bottom + "      and other.top = " + other.top);
+    if (checkCollide(other) ) {
+      if ( (this.top >= other.bottom) && (this.top <= other.top) ) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public float topOverlap(Collider other) {
+    //println("other is: " + other.parent.type);
+    if (checkTopOverlap(other) ) {
+      return other.bottom - this.top;
+    }
+    return 0;
+  }
 }//end of class
